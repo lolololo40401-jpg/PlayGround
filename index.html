@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#071017" />
+  <title>APEX RUN — Street Racing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d5ff3f'/%3E%3Ctext x='7' y='24' font-family='sans-serif' font-size='24' font-weight='900' font-style='italic' fill='%23071017'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="scene" aria-label="3D street racing game"></canvas>
+    <div class="vignette"></div>
+    <div class="top-brand"><span class="brand-mark">A</span><span>APEX<span class="brand-light">/RUN</span></span></div>
+    <button id="sound-toggle" class="sound-toggle" aria-label="Toggle sound">♫ <span>SOUND ON</span></button>
+
+    <section id="home-screen" class="screen active">
+      <div class="home-copy">
+        <p class="eyebrow"><span class="live-dot"></span> THE STREETS ARE YOURS</p>
+        <h1>OWN THE<br><em>NIGHT.</em></h1>
+        <p class="intro">Thirty-five runs. One legend.<br>How far will you push it?</p>
+        <div class="home-actions">
+          <button id="play-button" class="button button-primary">RACE NOW <span>↗</span></button>
+          <button id="garage-button" class="button button-ghost">GARAGE <span>⌁</span></button>
+        </div>
+        <button id="settings-button" class="settings-link">⚙ &nbsp; GAME SETTINGS</button>
+      </div>
+      <div class="home-meta"><span>SEASON 01</span><span class="meta-line"></span><span>URBAN LEGENDS</span></div>
+      <div class="home-car-caption"><span>01</span><span>VORTEX GT</span><span class="caption-line"></span><span>STREET CLASS</span></div>
+    </section>
+
+    <section id="level-screen" class="screen panel-screen">
+      <div class="panel-head"><button class="back-button" data-back="home">←</button><div><p class="eyebrow">YOUR STORY STARTS HERE</p><h2>SELECT <em>RUN</em></h2></div><div class="currency"><span>◈</span> <b id="cash-level">2,450</b></div></div>
+      <div class="chapter-tabs" id="chapter-tabs"></div>
+      <div class="level-layout"><div class="level-grid" id="level-grid"></div><aside class="level-detail" id="level-detail"></aside></div>
+    </section>
+
+    <section id="garage-screen" class="screen panel-screen">
+      <div class="panel-head"><button class="back-button" data-back="home">←</button><div><p class="eyebrow">BUILD YOUR EDGE</p><h2>THE <em>GARAGE</em></h2></div><div class="currency"><span>◈</span> <b id="cash-garage">2,450</b></div></div>
+      <div class="garage-layout"><div class="garage-car-info"><div class="car-index" id="car-index">01 / 04</div><h3 id="car-name">VORTEX GT</h3><p id="car-desc">Lightweight street machine. Built to own the corners.</p><div class="stat-list" id="car-stats"></div><div class="garage-arrows"><button id="prev-car">←</button><button id="next-car">→</button></div><button id="car-buy" class="button button-primary compact">SELECT CAR <span>↗</span></button></div><div class="garage-upgrades"><p class="eyebrow">PERFORMANCE SHOP</p><h3>MAKE IT <em>FASTER.</em></h3><div id="upgrade-list"></div></div></div>
+    </section>
+
+    <section id="settings-screen" class="screen panel-screen settings-panel">
+      <div class="panel-head"><button class="back-button" data-back="home">←</button><div><p class="eyebrow">MAKE IT YOURS</p><h2>GAME <em>OPTIONS</em></h2></div></div>
+      <div class="settings-card"><div><b>Music</b><small>Race-day soundtrack</small></div><button class="toggle on" data-setting="music">ON</button></div>
+      <div class="settings-card"><div><b>Sound effects</b><small>Engine, tires & impacts</small></div><button class="toggle on" data-setting="sfx">ON</button></div>
+      <div class="settings-card"><div><b>Vibration</b><small>Touch feedback on mobile</small></div><button class="toggle on" data-setting="vibration">ON</button></div>
+      <div class="settings-note">TIP: Hold the throttle to build speed. Brake into corners, then hit the boost.</div>
+    </section>
+
+    <section id="race-screen" class="race-ui">
+      <div class="race-top"><button class="pause-button" id="pause-button">Ⅱ</button><div class="race-title"><span id="race-stage">CITY · RUN 01</span><b id="race-title">NIGHT SHIFT</b></div><div class="race-objective"><small>OBJECTIVE</small><b id="objective-text">HIT THE FINISH</b></div><div class="race-speed"><strong id="speed-value">000</strong><small>KM/H</small></div></div>
+      <div class="progress-track"><div id="progress-fill"></div><span id="progress-km">0.0 / 3.2 KM</span></div>
+      <div class="race-bottom"><div class="race-info"><span id="race-condition">DRY ASPHALT</span><span class="race-info-sep">/</span><span id="police-status">NO PURSUIT</span></div><div class="boost-wrap"><span>NITRO</span><div class="boost-track"><div id="boost-fill"></div></div></div><div class="touch-controls"><button class="steer control" data-control="left" aria-label="Steer left">‹</button><button class="steer control" data-control="right" aria-label="Steer right">›</button><div class="pedals"><button class="brake control" data-control="brake"><span>◀</span> BRAKE</button><button class="throttle control" data-control="throttle"><span>▲</span> THROTTLE</button><button class="nitro control" data-control="nitro" aria-label="Use nitro"><span>ϟ</span> NITRO</button></div></div></div>
+    </section>
+
+    <div id="pause-overlay" class="modal-overlay"><div class="modal-card"><p class="eyebrow">TAKE A BREATHER</p><h2>RACE <em>PAUSED</em></h2><button id="resume-button" class="button button-primary">BACK TO RACE <span>↗</span></button><button id="quit-button" class="button button-ghost">QUIT TO MENU</button></div></div>
+    <div id="result-overlay" class="modal-overlay"><div class="modal-card result-card"><p class="eyebrow" id="result-kicker">RUN COMPLETE</p><h2 id="result-title">CLEAN <em>GETAWAY.</em></h2><p id="result-copy">You left them in the dust.</p><div class="reward">◈ <b id="reward-value">+350</b> <span>CREDITS</span></div><button id="result-button" class="button button-primary">CONTINUE <span>↗</span></button></div></div>
+    <div id="toast" class="toast"></div>
+    <div id="rotate-hint"><span>↻</span><b>ROTATE YOUR DEVICE</b><small>APEX RUN is best played in landscape</small></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
